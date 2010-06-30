@@ -3,6 +3,10 @@ class Admin::PollAnswersController < Admin::BaseController
   crudify :poll_answer, :title_attribute => :title
   before_filter :find_poll, :only => [:new, :create, :update, :destroy, :edit, :show]
 
+  def index
+    paginate_all_poll_answers
+  end
+  
   def create
     if (@poll_answer = PollAnswer.create({:poll_id => params[:poll_id]}.merge(params[:poll_answer]))).valid?
       flash.now[:notice] = "#{@poll_answer.title} was successfully created."
@@ -27,6 +31,11 @@ class Admin::PollAnswersController < Admin::BaseController
 
   def restrict_controller
     false
+  end
+
+  def paginate_all_poll_answers
+    @poll_answers = PollAnswer.paginate :page => params[:page],
+      :conditions => {:poll_id => params[:poll_id]}
   end
 
 end
