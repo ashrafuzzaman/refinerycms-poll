@@ -4,20 +4,29 @@ class PollsController < ApplicationController
   before_filter :find_page
 
   def index
-    # you can use meta fields from your model instead (e.g. browser_title)
-    # by swapping @page for @poll in the line below:
     present(@page)
   end
 
   def show
     @poll = Poll.find(params[:id])
-
-    # you can use meta fields from your model instead (e.g. browser_title)
-    # by swapping @page for @poll in the line below:
     present(@page)
   end
 
-protected
+  def submit
+    @poll = Poll.find(params[:id])
+    poll_answer_id = params[:poll_answer_id]
+    if poll_answer_id.nil?
+      flash[:notice] = "No answer selected"
+    else
+      poll_answer = PollAnswer.find(poll_answer_id)
+      poll_answer.vote += 1
+      poll_answer.save
+      UsersPoll.create(:user_id => current_user.id, :poll_answer_id => poll_answer_id, :poll_id => params[:id])
+    end
+    redirect_to :back
+  end
+
+  protected
 
   def find_all_polls
     @polls = Poll.find(:all, :order => "position ASC")

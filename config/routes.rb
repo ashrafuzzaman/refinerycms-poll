@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :polls
+  map.resources :polls, :member => { :submit => :post }
   map.resources :poll_answers
 
   map.namespace(:admin, :path_prefix => 'refinery') do |admin|

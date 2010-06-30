@@ -3,12 +3,12 @@
     <li>
       <%= link_to "Create New Poll Answer", new_admin_poll_poll_answer_url(params[:poll_id]), :class => "add_icon" %>
     </li>
-  <% if !searching? and PollAnswer.count > 1 %>
-    <li>
-      <%= link_to "Reorder Poll Answers", admin_poll_poll_answer_url(params[:poll_id]), :id => "reorder_action", :class => "reorder_icon" %>
-      <%= link_to "Done Reordering Poll Answers", admin_poll_poll_answer_url(params[:poll_id]), :id => "reorder_action_done", :style => "display: none;", :class => "reorder_icon" %>
-    </li>
-  <% end %>
+  <%# if !searching? and PollAnswer.count > 1 %>
+    <%#*<li>%>
+      <%#= link_to "Reorder Poll Answers", admin_poll_poll_answers_url(params[:poll_id]), :id => "reorder_action", :class => "reorder_icon" %>
+      <%#= link_to "Done Reordering Poll Answers", admin_poll_poll_answers_url(params[:poll_id]), :id => "reorder_action_done", :style => "display: none;", :class => "reorder_icon" %>
+    <%#*</li>%>
+  <%# end %>
   </ul>
 </div>
 <div id='records'>
